@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+	<head>
+		<title>Windows Loading</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="https://fonts.googleapis.com/css?family=Cabin+Condensed&display=swap" rel="stylesheet">
+		<style>
+			body{
+
+				background-color: #0068B4;
+				overflow: hidden;
+				font-family: 'Cabin Condensed', sans-serif;
+				padding: 0;
+				margin: 0;
+
+			}
+
+			#blanket{
+
+				position: absolute;
+				width: 100%;
+				height: 100vh;
+				background-color: #000000;
+				opacity: 1;
+				animation: 2s turnOn 1s linear forwards;
+
+			}
+
+			section{
+
+				position: absolute;
+				width: 100%;
+				height: 100vh;
+
+			}
+
+			#dotGroup{
+
+				position: relative;
+				width: 100px;
+				height: 100px;
+				top: calc(50% - 50px);
+				left: calc(50% - 50px);
+				opacity: 0;
+				/*border: 1px solid yellow;*/
+
+			}
+
+			.dotContainer{
+
+				position: absolute;
+				width: 100%;
+				height: 100%;
+			}
+
+			.dot{
+
+				position: absolute;
+				width: 10px;
+				height: 10px;
+				border-radius: 50%;
+				top: calc(100% - 5px);
+				left: calc(50% - 5px);
+				background-color: white;
+				transform-origin: 5px -45px;
+				
+
+			}
+
+			#leftCover,#rightCover{
+
+				position: absolute;
+				top: 50%;
+				left: -10%;
+				width: 60%;
+				height: 60%;
+				background-color: #0068B4;
+
+			}
+
+			#rightCover{
+
+				left: 50%;
+				opacity: 0;
+				/*animation: 4s rightCoverAni 1.6s step-start;*/
+
+			}
+
+			#leftCover{
+
+				opacity: 0;
+				/*animation: 3.8s leftCoverAni 0s step-start;*/
+
+			}
+
+			#bottomText{
+
+				font-size: 30px;
+				text-align: center;
+				width: 100%;
+				position: absolute;
+				top: calc(50% + 50px);
+				color: white;
+				font-weight: thin;
+			}
+
+			.dotContainer > .dot{
+
+				transform: rotate(-30deg);
+
+			}
+
+			#footer{
+				position: fixed;
+				right: 0;
+				bottom: 0;
+				padding: 3px;
+				font-size: 12px;
+				text-align: right;
+				color: white;
+			}
+
+			#footer > p{
+				display: inline;
+			}
+
+			a{
+
+				color: white;
+
+			}
+
+			/* -- */
+
+			@keyframes circlesAni{
+
+				0%{
+
+					transform: rotate(-30deg);
+
+				}
+
+				100%{
+
+					transform: rotate(360deg);
+
+				}
+
+			}
+
+			@keyframes circlesAni2{
+
+				0%{
+
+					transform: rotate(0deg);
+
+				}
+
+				100%{
+
+					transform: rotate(420deg);
+
+				}
+
+			}
+
+			@keyframes rightCoverAni{
+
+				0%{
+
+					opacity: 0;
+
+				}
+
+				100%{
+
+					opacity: 0;
+
+				}
+
+			}
+
+			@keyframes leftCoverAni{
+
+				0%{
+
+					opacity: 0;
+
+				}
+
+				100%{
+
+					opacity: 0;
+
+				}
+
+			}
+
+			@keyframes turnOn{
+
+				0%{
+
+					opacity 1;
+
+				}
+
+				100%{
+
+					opacity: 0;
+
+				}
+
+			}
+		</style>
+	</head>
+	<body>
+		<section id="blanket">
+		</section>
+		<section>
+			<div id="dotGroup">
+				<div class="dotContainer">
+					<div class="dot"></div>
+				</div>
+				<div class="dotContainer">
+					<div class="dot"></div>
+				</div>
+				<div class="dotContainer">
+					<div class="dot"></div>
+				</div>
+				<div class="dotContainer">
+					<div class="dot"></div>
+				</div>
+				<div class="dotContainer">
+					<div class="dot"></div>
+				</div>
+				<div id="leftCover">
+				</div>
+				<div id="rightCover">
+				</div>
+			</div>
+			<div id="bottomText">
+				<p>Espere un momento.</p>
+			</div>
+		</section>
+		<div id="footer">
+			<p>&copy;<a href="https://github.com/SkarYxD/">JKDev</a></p>
+		</div>
+		<script>
+
+			var myDots = document.getElementsByClassName("dotContainer");
+			var leftCover = document.getElementById("leftCover");
+			var rightCover = document.getElementById("rightCover");
+
+			setTimeout(function(){
+
+				document.getElementById("dotGroup").style.opacity = 1;
+
+				setInterval(bottomFunc,1500);
+				setInterval(animations,6000);
+				animations();
+				var amount = 0;
+
+				function bottomFunc(){
+
+					amount++;
+					var result = "";
+
+					for(let i=0; i<((amount%3)+1); i++){
+
+						result += ".";
+
+					}
+
+					document.querySelectorAll("#bottomText > p")[0].innerHTML = "Espere un momento"+result;
+
+				}
+
+				function animations(){
+
+					leftCover.style.opacity = 1;
+					rightCover.style.opacity = 1;
+
+					rightCover.style.animation = "none";
+					rightCover.offsetHeight;
+					rightCover.style.animation = null;
+					rightCover.style.animation = "4s rightCoverAni 1.6s step-start";
+
+					leftCover.style.animation = "none";
+					leftCover.offsetHeight;
+					leftCover.style.animation = null;
+					leftCover.style.animation = "3.8s leftCoverAni 0s step-start";
+
+					for(let j=0; j<myDots.length; j++){
+
+						myDots[j].style.animation = "none";
+						myDots[j].offsetHeight;
+						myDots[j].style.animation = null;
+						myDots[j].style.animation = "2s circlesAni "+(j*0.375)+"s cubic-bezier(0.2,0.95,0.75,0.2), 2s circlesAni2 "+(2+(j*0.375))+"s cubic-bezier(0.2,0.65,0.75,0.2) forwards";
+
+					}
+
+				}
+
+			},3000);
+		</script>
+	</body>
+</html>
